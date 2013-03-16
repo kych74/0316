@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>webcam</title>
+		<meta name="description" content="" />
+		<meta name="author" content="thinker" />
+
+		<meta name="viewport" content="width=device-width; initial-scale=1.0" />
+
+		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+	</head>
+
+	<body>
+		<video id='video' autoplay="true"></video>
+		<button id='btn'>Capture</button>
+		<img src="">
+		<canvas id='canvas'></canvas>
+		
+		<hr/>
+		<div id='images'></div>
+		<script>
+			navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+			
+			console.log(navigator.getUserMedia);
+			
+			var video = document.querySelector('video');
+			var canvas = document.getElementById('canvas');
+			
+			var images  = document.getElementById('images');
+			
+			var localMediaStream = null;
+			
+			if (navigator.getUserMedia) {
+			  navigator.getUserMedia({audio: true, video: true}, function(stream) {
+			    video.src = window.URL.createObjectURL(stream);
+			    localMediaStream = stream;
+			  });
+			}
+			
+			canvas.width = '200';
+			canvas.height= '150';
+		</script>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+		<script>
+			$('#btn').bind('click', function(e){
+				if (localMediaStream) {
+					
+					
+					var ctx = canvas.getContext('2d');
+					
+					ctx.drawImage(video,0,0, 200, 150);	
+					//document.querySelector('img').src = canvas.toDataURL('image/png');
+					
+					var img  = document.createElement("img");
+					
+					img.src = canvas.toDataURL('image/png');
+					
+					images.appendChild(img);
+				 }
+
+			});
+		</script>
+		
+	</body>
+</html>
