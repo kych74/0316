@@ -39,3 +39,20 @@ $('#dropzone').bind('drop',function(e){
   }
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
